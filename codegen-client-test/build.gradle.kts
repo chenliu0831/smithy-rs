@@ -26,6 +26,7 @@ val checkedInSmithyRuntimeLockfile = rootProject.projectDir.resolve("rust-runtim
 
 dependencies {
     implementation(project(":codegen-client"))
+    implementation(project(":codegen-serde"))
     implementation(libs.smithy.aws.protocol.tests)
     implementation(libs.smithy.protocol.tests)
     implementation(libs.smithy.protocol.test.traits)
@@ -125,6 +126,7 @@ val allCodegenTests = listOf(
         dependsOn = listOf("pokemon-awsjson.smithy", "pokemon-common.smithy"),
     ),
     ClientTest("aws.protocoltests.misc#QueryCompatService", "query-compat-test", dependsOn = listOf("aws-json-query-compat.smithy")),
+    ClientTest("com.benchmark#BenchmarkService", "benchmark_serde", dependsOn = listOf("benchmark-serde.smithy")),
 ).map(ClientTest::toCodegenTest)
 
 project.registerGenerateSmithyBuildTask(rootProject, pluginName, allCodegenTests)
